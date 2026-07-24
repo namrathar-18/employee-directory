@@ -100,6 +100,18 @@ client/   React app (Vite)
 server/   Express API
 ```
 
+## Deploying to Vercel
+
+The repo is wired to deploy the whole thing — web app and API — to Vercel as a single project:
+
+1. Import the repo on Vercel. The build settings come from `vercel.json`, so leave them as detected.
+2. Add an environment variable **`MONGODB_URI`** with your connection string.
+3. In MongoDB Atlas, allow access from anywhere (`0.0.0.0/0`) under Network Access so Vercel can reach the database.
+4. Deploy.
+
+The API runs as a serverless function under `/api`, and the frontend calls it on the same origin,
+so there's nothing else to configure.
+
 ## Notes & assumptions
 
 - Search matches name, email and job title — case-insensitive, partial match.
