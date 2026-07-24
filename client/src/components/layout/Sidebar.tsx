@@ -1,6 +1,9 @@
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, ShieldCheck, Users } from 'lucide-react';
+import { LayoutDashboard, LogOut, Users } from 'lucide-react';
 import clsx from 'clsx';
+import { Logo } from '../ui/Logo';
+import { useAuth } from '../../context/AuthProvider';
+import { initialsFromName } from '../../lib/format';
 import styles from './Sidebar.module.css';
 
 const navItems = [
@@ -14,19 +17,15 @@ interface SidebarProps {
 }
 
 export function Sidebar({ open, onClose }: SidebarProps) {
+  const { user, signOut } = useAuth();
+
   return (
     <>
       {open && <div className={styles.backdrop} onClick={onClose} aria-hidden />}
 
       <aside className={clsx(styles.sidebar, open && styles.open)}>
         <div className={styles.brand}>
-          <span className={styles.logo}>
-            <ShieldCheck size={20} />
-          </span>
-          <span>
-            <span className={styles.brandName}>Directory</span>
-            <span className={styles.brandSub}>People Management</span>
-          </span>
+          <Logo />
         </div>
 
         <nav className={styles.nav}>
@@ -47,11 +46,20 @@ export function Sidebar({ open, onClose }: SidebarProps) {
 
         <div className={styles.footer}>
           <div className={styles.userCard}>
-            <span className={styles.userAvatar}>NR</span>
+            <span className={styles.userAvatar}>{initialsFromName(user?.name)}</span>
             <span className={styles.userInfo}>
-              <span className={styles.userName}>Namratha R</span>
-              <span className={styles.userRole}>Administrator</span>
+              <span className={styles.userName}>{user?.name ?? 'Guest'}</span>
+              <span className={styles.userEmail}>{user?.email ?? 'Signed in'}</span>
             </span>
+            <button
+              type="button"
+              className={styles.signOut}
+              onClick={signOut}
+              aria-label="Sign out"
+              title="Sign out"
+            >
+              <LogOut size={16} />
+            </button>
           </div>
         </div>
       </aside>
