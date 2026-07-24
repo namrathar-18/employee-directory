@@ -1,5 +1,5 @@
 # Cadre
-
+🌐 Live Demo: https://cisogenie-client.onrender.com/
 Cadre is a full-stack people directory — browse the team, search and filter, and
 add / edit / remove employees. React + TypeScript on the front end, an Express +
 MongoDB API on the back.
