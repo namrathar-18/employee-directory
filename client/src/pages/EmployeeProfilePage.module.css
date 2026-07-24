@@ -1,0 +1,140 @@
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: var(--space-5);
+  transition: color var(--transition);
+}
+.back:hover {
+  color: var(--text);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-5);
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+.identityText {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.name {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.role {
+  font-size: 15px;
+  color: var(--text-muted);
+}
+.badges {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+.type {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-5);
+}
+.full {
+  grid-column: 1 / -1;
+}
+.cardTitle {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-subtle);
+  margin-bottom: var(--space-4);
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: 0;
+}
+.detail {
+  display: grid;
+  grid-template-columns: 24px 90px 1fr;
+  align-items: center;
+  gap: var(--space-3);
+}
+.detailIcon {
+  display: inline-flex;
+  color: var(--text-subtle);
+}
+.detailLabel {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+}
+.detailValue {
+  font-size: 14px;
+  color: var(--text);
+  margin: 0;
+  word-break: break-word;
+}
+.link {
+  color: var(--primary);
+}
+[data-theme='dark'] .link {
+  color: var(--primary-hover);
+}
+.link:hover {
+  text-decoration: underline;
+}
+
+.bio {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .actions {
+    width: 100%;
+  }
+}

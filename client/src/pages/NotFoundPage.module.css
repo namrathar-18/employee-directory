@@ -1,0 +1,24 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 60vh;
+  gap: var(--space-3);
+}
+
+.code {
+  font-size: 72px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--primary);
+  line-height: 1;
+}
+.title {
+  font-size: 22px;
+}
+.text {
+  color: var(--text-muted);
+  margin: 0 0 var(--space-3);
+}
