@@ -4,8 +4,12 @@
    ============================================================ */
 
 :root {
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Helvetica, Arial, sans-serif;
+  --font-sans: 'Plus Jakarta Sans Variable', system-ui, -apple-system, 'Segoe UI',
+    Roboto, Helvetica, Arial, sans-serif;
+  --font-display: 'Space Grotesk Variable', 'Plus Jakarta Sans Variable', system-ui,
+    sans-serif;
+
+  --brand-gradient: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 45%, #0f766e 100%);
 
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -30,7 +34,7 @@
 :root,
 [data-theme='light'] {
   --bg: #f5f6f8;
-  --bg-gradient: radial-gradient(1200px 600px at 100% -10%, #eef2ff 0%, transparent 60%);
+  --bg-gradient: radial-gradient(1200px 600px at 100% -10%, #d9f5ef 0%, transparent 60%);
   --surface: #ffffff;
   --surface-2: #f3f4f6;
   --surface-hover: #f7f8fa;
@@ -41,11 +45,11 @@
   --text-muted: #64748b;
   --text-subtle: #94a3b8;
 
-  --primary: #4f46e5;
-  --primary-hover: #4338ca;
-  --primary-soft: #eef2ff;
+  --primary: #0f766e;
+  --primary-hover: #115e59;
+  --primary-soft: #d5f5ef;
   --on-primary: #ffffff;
-  --ring: rgba(79, 70, 229, 0.35);
+  --ring: rgba(15, 118, 110, 0.3);
 
   --success: #15803d;
   --success-soft: #dcfce7;
@@ -64,7 +68,7 @@
 /* ---------- Dark theme ---------- */
 [data-theme='dark'] {
   --bg: #0a0e17;
-  --bg-gradient: radial-gradient(1200px 600px at 100% -10%, rgba(79, 70, 229, 0.14) 0%, transparent 55%);
+  --bg-gradient: radial-gradient(1200px 600px at 100% -10%, rgba(20, 184, 166, 0.12) 0%, transparent 55%);
   --surface: #121826;
   --surface-2: #1a2232;
   --surface-hover: #1c2536;
@@ -75,11 +79,11 @@
   --text-muted: #94a3b8;
   --text-subtle: #64748b;
 
-  --primary: #6366f1;
-  --primary-hover: #818cf8;
-  --primary-soft: rgba(99, 102, 241, 0.16);
-  --on-primary: #ffffff;
-  --ring: rgba(129, 140, 248, 0.45);
+  --primary: #2dd4bf;
+  --primary-hover: #5eead4;
+  --primary-soft: rgba(45, 212, 191, 0.15);
+  --on-primary: #04312c;
+  --ring: rgba(45, 212, 191, 0.4);
 
   --success: #4ade80;
   --success-soft: rgba(34, 197, 94, 0.16);
@@ -120,8 +124,9 @@ body {
 
 h1, h2, h3, h4 {
   margin: 0;
+  font-family: var(--font-display);
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   color: var(--text);
 }
 

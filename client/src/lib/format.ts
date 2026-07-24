@@ -9,6 +9,13 @@ export function departmentColor(department: string): string {
   return DEPARTMENT_COLORS[department] ?? DEFAULT_ACCENT;
 }
 
+/** Initials from a full name string, e.g. "Namratha R" -> "NR". */
+export function initialsFromName(name: string | undefined): string {
+  if (!name) return 'U';
+  const parts = name.trim().split(/\s+/);
+  return parts.slice(0, 2).map((part) => part.charAt(0).toUpperCase()).join('') || 'U';
+}
+
 /** Converts a hex colour to an rgba() string with the given alpha. */
 export function withAlpha(hex: string, alpha: number): string {
   const value = hex.replace('#', '');

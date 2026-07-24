@@ -30,7 +30,7 @@ export function DashboardPage() {
             <StatCard
               label="Total employees"
               value={stats.total}
-              accent="#6366f1"
+              accent="#0d9488"
               icon={<Users size={22} />}
               hint={`Across ${stats.departments} departments`}
             />
