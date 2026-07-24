@@ -1,11 +1,13 @@
 import { Router } from 'express';
 import { employeeRouter } from './employee.routes';
+import { authRouter } from './auth.routes';
 import { asyncHandler } from '../middleware/asyncHandler';
 import { getStats } from '../controllers/stats.controller';
 import { DEPARTMENTS, EMPLOYEE_STATUSES, EMPLOYMENT_TYPES } from '../constants';
 
 export const router = Router();
 
+router.use('/auth', authRouter);
 router.use('/employees', employeeRouter);
 router.get('/stats', asyncHandler(getStats));
 

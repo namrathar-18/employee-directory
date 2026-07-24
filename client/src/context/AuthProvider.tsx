@@ -7,62 +7,124 @@ import {
   type ReactNode,
 } from 'react';
 
-interface AuthUser {
-  email: string;
+const API = import.meta.env.VITE_API_URL ?? '';
+
+// ── Types ─────────────────────────────────────────────────────────────────────
+
+export interface AuthUser {
+  id: string;
   name: string;
+  email: string;
 }
 
 interface AuthContextValue {
   isAuthenticated: boolean;
   user: AuthUser | null;
-  signIn: (email: string) => void;
+  token: string | null;
+  signIn: (email: string, password: string) => Promise<void>;
+  signUp: (name: string, email: string, password: string) => Promise<void>;
   signOut: () => void;
 }
 
-const STORAGE_KEY = 'cadre.auth';
-const AuthContext = createContext<AuthContextValue | undefined>(undefined);
+// ── Storage helpers ───────────────────────────────────────────────────────────
 
-function nameFromEmail(email: string): string {
-  const local = email.split('@')[0] ?? '';
-  const words = local.split(/[._-]+/).filter(Boolean);
-  if (words.length === 0) return 'there';
-  return words.map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-}
+const STORAGE_USER = 'ciso.auth.user';
+const STORAGE_TOKEN = 'ciso.auth.token';
 
-function readStored(): AuthUser | null {
+function readStoredUser(): AuthUser | null {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(STORAGE_USER);
     return raw ? (JSON.parse(raw) as AuthUser) : null;
   } catch {
     return null;
   }
 }
 
-export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<AuthUser | null>(readStored);
+function readStoredToken(): string | null {
+  try {
+    return localStorage.getItem(STORAGE_TOKEN);
+  } catch {
+    return null;
+  }
+}
 
-  const signIn = useCallback((email: string) => {
-    const next: AuthUser = { email, name: nameFromEmail(email) };
-    setUser(next);
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-    } catch {
-      /* storage unavailable — ignore */
+function persist(user: AuthUser, token: string) {
+  try {
+    localStorage.setItem(STORAGE_USER, JSON.stringify(user));
+    localStorage.setItem(STORAGE_TOKEN, token);
+  } catch {
+    /* storage unavailable */
+  }
+}
+
+function clearStorage() {
+  try {
+    localStorage.removeItem(STORAGE_USER);
+    localStorage.removeItem(STORAGE_TOKEN);
+  } catch {
+    /* ignore */
+  }
+}
+
+// ── Context ───────────────────────────────────────────────────────────────────
+
+const AuthContext = createContext<AuthContextValue | undefined>(undefined);
+
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<AuthUser | null>(readStoredUser);
+  const [token, setToken] = useState<string | null>(readStoredToken);
+
+  const signIn = useCallback(async (email: string, password: string) => {
+    const res = await fetch(`${API}/api/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = (await res.json()) as { token?: string; user?: AuthUser; error?: string };
+
+    if (!res.ok) {
+      throw new Error(data.error ?? 'Sign in failed');
     }
+
+    const { token: tok, user: usr } = data;
+    if (!tok || !usr) throw new Error('Invalid response from server');
+
+    setUser(usr);
+    setToken(tok);
+    persist(usr, tok);
+  }, []);
+
+  const signUp = useCallback(async (name: string, email: string, password: string) => {
+    const res = await fetch(`${API}/api/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password }),
+    });
+
+    const data = (await res.json()) as { token?: string; user?: AuthUser; error?: string };
+
+    if (!res.ok) {
+      throw new Error(data.error ?? 'Sign up failed');
+    }
+
+    const { token: tok, user: usr } = data;
+    if (!tok || !usr) throw new Error('Invalid response from server');
+
+    setUser(usr);
+    setToken(tok);
+    persist(usr, tok);
   }, []);
 
   const signOut = useCallback(() => {
     setUser(null);
-    try {
-      localStorage.removeItem(STORAGE_KEY);
-    } catch {
-      /* ignore */
-    }
+    setToken(null);
+    clearStorage();
   }, []);
 
   const value = useMemo<AuthContextValue>(
-    () => ({ isAuthenticated: Boolean(user), user, signIn, signOut }),
-    [user, signIn, signOut],
+    () => ({ isAuthenticated: Boolean(user), user, token, signIn, signUp, signOut }),
+    [user, token, signIn, signUp, signOut],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

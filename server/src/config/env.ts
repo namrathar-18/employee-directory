@@ -15,6 +15,7 @@ export const env = {
   port: Number(process.env.PORT ?? 4000),
   mongoUri: requireEnv('MONGODB_URI'),
   clientOrigin: process.env.CLIENT_ORIGIN ?? 'http://localhost:5173',
+  jwtSecret: requireEnv('JWT_SECRET'),
 };
 
 export const isProd = env.nodeEnv === 'production';
