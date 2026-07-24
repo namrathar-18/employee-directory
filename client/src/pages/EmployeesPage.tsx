@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Download, Plus, SearchX } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
+import { Download, Plus } from 'lucide-react';
 import clsx from 'clsx';
+import { EmptySearchArt } from '../components/illustrations/EmptySearchArt';
 import { PageHeader } from '../components/ui/PageHeader';
 import { Button } from '../components/ui/Button';
 import { EmployeeFilters } from '../components/employees/EmployeeFilters';
@@ -35,6 +37,17 @@ export function EmployeesPage() {
   const [panel, setPanel] = useState<{ open: boolean; employee?: Employee }>({ open: false });
   const [deleteTarget, setDeleteTarget] = useState<Employee | null>(null);
   const [isExporting, setIsExporting] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Support the "Add employee" command-palette action (/employees?new=1).
+  useEffect(() => {
+    if (searchParams.get('new') !== null) {
+      setPanel({ open: true });
+      const next = new URLSearchParams(searchParams);
+      next.delete('new');
+      setSearchParams(next, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
 
   const query = useMemo(
     () => ({
@@ -153,7 +166,7 @@ export function EmployeesPage() {
       ) : showEmpty ? (
         <div className={styles.panel}>
           <EmptyState
-            icon={<SearchX size={26} />}
+            illustration={<EmptySearchArt />}
             title={hasActiveFilters ? 'No matching employees' : 'No employees yet'}
             description={
               hasActiveFilters

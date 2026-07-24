@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { Topbar } from './Topbar';
+import { CommandPalette } from '../command/CommandPalette';
 import styles from './AppLayout.module.css';
 
 export function AppLayout() {
@@ -16,6 +17,7 @@ export function AppLayout() {
           <Outlet />
         </main>
       </div>
+      <CommandPalette />
     </div>
   );
 }

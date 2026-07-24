@@ -26,8 +26,44 @@
 
 .brandMobile {
   display: none;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
   font-weight: 700;
-  font-size: 15px;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+}
+
+.search {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 40px;
+  min-width: 250px;
+  padding: 0 10px 0 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-subtle);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition), background-color var(--transition);
+}
+.search:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-hover);
+}
+.searchText {
+  flex: 1;
+  text-align: left;
+  font-size: 13.5px;
+}
+.kbd {
+  font-size: 11px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 1px 6px;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  white-space: nowrap;
 }
 
 .spacer {
@@ -59,6 +95,17 @@
     display: inline-flex;
   }
   .brandMobile {
-    display: block;
+    display: flex;
+  }
+  .search {
+    min-width: 0;
+    width: 40px;
+    padding: 0;
+    justify-content: center;
+    margin-left: auto;
+  }
+  .searchText,
+  .kbd {
+    display: none;
   }
 }
