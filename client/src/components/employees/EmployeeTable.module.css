@@ -1,0 +1,135 @@
+.wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.th {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-2);
+  white-space: nowrap;
+}
+.th:first-child {
+  border-top-left-radius: var(--radius-md);
+}
+.actionsHead {
+  border-top-right-radius: var(--radius-md);
+}
+
+.sortBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 4px;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition);
+}
+.sortBtn:hover {
+  color: var(--text);
+}
+.sortActive {
+  color: var(--primary);
+}
+[data-theme='dark'] .sortActive {
+  color: var(--primary-hover);
+}
+.sortIconIdle {
+  opacity: 0.5;
+}
+
+.row {
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+.row:hover {
+  background: var(--surface-hover);
+}
+.row:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--ring);
+}
+
+.td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.person {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.personText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.name {
+  font-weight: 600;
+  color: var(--text);
+}
+.email {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+.role {
+  display: block;
+  color: var(--text);
+}
+.sub {
+  display: block;
+  font-size: 12.5px;
+  color: var(--text-subtle);
+}
+.muted {
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.actions {
+  text-align: right;
+  white-space: nowrap;
+}
+.iconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition), color var(--transition),
+    border-color var(--transition);
+}
+.iconBtn:hover {
+  background: var(--surface-2);
+  color: var(--text);
+  border-color: var(--border);
+}
+.danger:hover {
+  background: var(--danger-soft);
+  color: var(--danger);
+  border-color: transparent;
+}
