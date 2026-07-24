@@ -1,7 +1,7 @@
-# Employee Directory
+# Cadre
 
-A full-stack app for managing a company's people — browse the team, search and filter,
-and add / edit / remove employees. React + TypeScript on the front end, an Express +
+Cadre is a full-stack people directory — browse the team, search and filter, and
+add / edit / remove employees. React + TypeScript on the front end, an Express +
 MongoDB API on the back.
 
 ## Features
@@ -10,6 +10,8 @@ MongoDB API on the back.
 - Individual **employee profile** pages with contact and employment details
 - **Add, edit and delete** employees, with validation on both the client and the server
 - **Dashboard** with headcount stats and a department breakdown
+- **Command palette** (Ctrl/⌘ + K) for instant search and quick navigation
+- **Sign-in screen** with a lightweight demo auth flow
 - **Light / dark theme** that remembers your choice
 - **Responsive** layout for desktop, tablet and mobile
 - Export the current view to **CSV**
